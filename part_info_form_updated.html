@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <title>Part Information Form</title>
+    </head>
+    <body>
+        <div class="form-container">
+            <form action="/" method="post" id="myForm">
+                <h2>Enter Part Information</h2>
+                <div class="input-group">
+                    <label for="partName">Part Name:</label>
+                    <input type="text" id="partName" name="partName" required />
+                </div>
+                <div class="input-group">
+                    <label for="price">Price:</label>
+                    <input type="number" id="price" name="price" required />
+                </div>
+                <div class="input-group">
+                    <label for="description">Description:</label>
+                    <textarea
+                        id="description"
+                        name="description"
+                        required
+                    ></textarea>
+                </div>
+                <div class="input-group">
+                    <label for="partid">Part ID:</label>
+                    <input type="text" id="partid" name="partid" required />
+                </div>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <p>Data Received!</p>
+            </div>
+        </div>
+        <script src="client.js"></script>
+    </body>
+    <div id="linker" class="center">
+        <a href="/tools">Show list of Tools (JSON) </a>
+    </div>
+    <div id="linker">
+        <a href="/tools-page"> Show tools</a>
+    </div>
+</html>
