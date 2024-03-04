@@ -17,6 +17,36 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "part_info_form_updated.html"));
 });
 
+app.get("/say/:name", function (req, res) {
+  res.send("Hello " + req.params.name + "!");
+});
+
+// Route to access database:
+app.get("/api/mongo/:item", function (req, res) {
+  const searchKey = "{ partid: '" + req.params.item + "' }";
+  console.log("Looking for: " + searchKey);
+  async function run() {
+    try {
+      await client.connect();
+      const database = client.db("arousmdb");
+      const parts = database.collection("Tools");
+
+      // Hardwired Query for a part that has partID '12345'
+      // const query = { partID: '12345' };
+      // But we will use the parameter provided with the route
+      const query = { partid: req.params.item };
+
+      const part = await parts.findOne(query);
+      console.log(part);
+      res.send("Found this: " + JSON.stringify(part)); //Use stringify to print a json
+    } finally {
+      // Ensures that the client will close when you finish/error
+      await client.close();
+    }
+  }
+  run().catch(console.dir);
+});
+
 app.post("/", async (req, res) => {
   console.log("Received Post Request");
   console.log("Form Data:", req.fields);
