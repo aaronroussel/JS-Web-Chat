@@ -5,7 +5,7 @@ const client = new MongoClient(uri);
 const express = require("express");
 const path = require("path");
 const app = express();
-const port = 8080;
+const port = 8000;
 const formidable = require("express-formidable");
 
 // Static files
@@ -15,6 +15,30 @@ app.use(formidable());
 // Routes
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "part_info_form_updated.html"));
+});
+
+app.get("/create_account", (req, res) => {
+  res.sendFile(path.join(__dirname, "create_account.html"));
+});
+
+app.post("/create_account", async (req, res) => {
+  console.log("Received Post Request");
+  console.log("Form Data:", req.fields);
+  const newData = {
+    username: req.fields.userName,
+    password: req.fields.password,
+  };
+  try {
+    created = await createAccount(client, newData);
+    if (!created) {
+      res.send("account already exists");
+    } else {
+      res.send("Account Created");
+    }
+  } catch (error) {
+    console.error("Error inserting Data", error);
+    res.status(500).send("Error inserting data");
+  }
 });
 
 app.get("/say/:name", function (req, res) {
@@ -104,4 +128,35 @@ async function insertListing(client, newListing) {
   } finally {
     await client.close();
   }
+}
+
+async function createAccount(client, newAccount) {
+  console.log("POST data: ", newAccount);
+  wasCreated = false;
+  const query = { username: newAccount.username };
+  try {
+    await client.connect();
+    const result_accounts = await client
+      .db("arousmdb")
+      .collection("Accounts")
+      .findOne(query);
+    //await client.close();
+    if (result_accounts == null) {
+      // client.connect();
+      const result = await client
+        .db("arousmdb")
+        .collection("Accounts")
+        .insertOne(newAccount);
+      console.log(
+        "New account created with the following id: ${result.insertedId}",
+      );
+      wasCreated = true;
+    } else {
+      console.log("Account already exists");
+    }
+  } finally {
+    await client.close();
+  }
+
+  return wasCreated;
 }
