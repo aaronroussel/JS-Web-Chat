@@ -6,6 +6,7 @@ body {
     align-items: center;
     height: 100vh;
     margin: 0;
+    flex-direction: column;
 }
 
 .form-container {
@@ -74,11 +75,12 @@ button:hover {
 }
 
 .modal-content {
-    background-color: #fefefe;
+    background-color: #1d1d1d;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
-    width: 80%;
+    width: 40%;
+    position: relative;
 }
 
 .close {
@@ -97,4 +99,38 @@ button:hover {
 
 .center {
     text-align: center;
+}
+
+.center-button {
+    text-align: center; /* Centers the content horizontally */
+    margin-top: 20px; /* Adds some space above the button */
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 15px; /* Adjust the padding as needed */
+    font-size: 16px; /* Adjust font size as needed */
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    color: #ffffff; /* Text color */
+    background-color: #007bff; /* Background color */
+    border: 1px solid #007bff; /* Border color */
+    border-radius: 5px; /* Rounded corners */
+}
+
+.button:hover {
+    background-color: #0056b3; /* Darker background on hover */
+    border-color: #0056b3; /* Darker border on hover */
+}
+
+.center-message {
+    text-align: center;
+    margin-top: 20px;
+    color: #ffffff;
+}
+
+.center-div {
+    text-align: center;
+    margin-top: 20px;
 }

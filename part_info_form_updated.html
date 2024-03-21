@@ -28,7 +28,18 @@
                     <label for="partid">Part ID:</label>
                     <input type="text" id="partid" name="partid" required />
                 </div>
-                <button type="submit">Submit</button>
+                <button type="submit" class="button">Submit</button>
+                <div class="center-button">
+                    <button id="show_tools" class="button">
+                        List all Tools
+                    </button>
+                </div>
+                <div class="center-button">
+                    <a href="/showcookies">show cookies</a>
+                </div>
+                <div class="center-button">
+                    <a href="/clear_cookies">clear cookies</a>
+                </div>
             </form>
         </div>
         <div id="myModal" class="modal">
@@ -39,10 +50,4 @@
         </div>
         <script src="client.js"></script>
     </body>
-    <div id="linker" class="center">
-        <a href="/tools">Show list of Tools (JSON) </a>
-    </div>
-    <div id="linker">
-        <a href="/tools-page"> Show tools</a>
-    </div>
 </html>

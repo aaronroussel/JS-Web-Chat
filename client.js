@@ -2,6 +2,13 @@ document.addEventListener("DOMContentLoaded", function () {
   const form = document.getElementById("myForm");
   const modal = document.getElementById("myModal");
   const span = document.getElementsByClassName("close")[0];
+  const showToolsButton = document.getElementById("show_tools");
+
+  showToolsButton.addEventListener("click", function (event) {
+    event.preventDefault();
+    console.log("Button clicked");
+    window.location.href = "/tools";
+  });
 
   form.addEventListener("submit", function (event) {
     event.preventDefault();
