@@ -44,6 +44,10 @@ app.get("/showcookies", (req, res) => {
   res.send(mycookies);
 });
 
+app.get("/registration-successful", (req, res) => {
+  res.sendFile(path.join(__dirname, "registration-successful.html"));
+});
+
 app.get("/clear_cookies", (req, res) => {
   res.clearCookie("username");
   res.sendFile(path.join(__dirname, "cookies_cleared.html"));
@@ -51,6 +55,10 @@ app.get("/clear_cookies", (req, res) => {
 
 app.get("/chat", (req, res) => {
   res.sendFile(path.join(__dirname, "chat.html"));
+});
+
+app.get("/login-successful", (req, res) => {
+  res.sendFile(path.join(__dirname, "login-successful.html"));
 });
 
 app.post("/create_account", async (req, res) => {
@@ -65,7 +73,8 @@ app.post("/create_account", async (req, res) => {
     if (!created) {
       res.send("account already exists");
     } else {
-      res.redirect("/login");
+      console.log("Redirecting client....");
+      res.redirect("/registration-successful");
     }
   } catch (error) {
     console.error("Error inserting Data", error);
@@ -92,11 +101,11 @@ app.post("/login", async (req, res) => {
         });
       } else {
         res.cookie("username", userData.username, {
-          maxAge: 20000,
+          maxAge: 90000,
           httpOnly: true,
         });
       }
-      return res.redirect("/");
+      return res.redirect("/login-successful");
     } else {
       res.send("Incorrect Login Information");
     }
@@ -177,7 +186,6 @@ app.get("/tools", async (req, res) => {
           <h2>Tools List</h2>
           <div class="row">`;
 
-      // Append each tool to the HTML string
       tools.forEach((tool) => {
         htmlResponse += `
         <div class="col">
@@ -189,7 +197,6 @@ app.get("/tools", async (req, res) => {
         </div>`;
       });
 
-      // Close the HTML string
       htmlResponse += `
           </div>
         </div>
