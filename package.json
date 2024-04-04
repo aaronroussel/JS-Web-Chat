@@ -11,6 +11,8 @@
     "start": "node testmongo.js"
   },
   "dependencies": {
+    "circular-buffer": "^1.0.3",
+    "cookie": "^0.6.0",
     "cookie-parser": "~1.4.4",
     "express": "^4.19.1",
     "express-formidable": "^1.2.0",

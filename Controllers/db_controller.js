@@ -47,7 +47,7 @@ class DBconnection {
           .collection("Accounts")
           .insertOne(newAccount);
         console.log(
-          "New account created with the following id: ${result.insertedId}",
+          "New account created with the following id: " + result.insertedId,
         );
         wasCreated = true;
       } else {
