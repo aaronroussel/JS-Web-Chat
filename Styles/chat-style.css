@@ -17,19 +17,32 @@ body {
 }
 
 .container {
+    /* The container should be a flex row container now */
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    /* This will distribute space between the messages and the chat-controls */
+    flex-direction: row;
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.8);
     border-radius: 10px;
     background-color: rgba(40, 50, 55, 0.4);
-    /* 80% opacity */
     width: 80vw;
-    /* Adjust the width to your preference */
     height: 80vh;
-    /* Adjust the height to your preference */
     overflow: hidden;
+}
+
+.chat-container {
+    /* This is a new flex column container for the chat messages and controls */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: calc(100% - 20vw); /* Subtract the width of the control panel */
+    height: 100%;
+}
+
+.control-panel-container {
+    /* Existing styles... */
+    width: 20vw; /* Adjust the width of the control panel if needed */
+    height: 100%;
+    overflow-y: auto;
+    border-left: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 #messages {
@@ -55,10 +68,34 @@ body {
     background-color: rgba(40, 50, 53, 0.2);
 }
 
+#users {
+    list-style-type: none;
+    padding: 5px;
+    margin: 0;
+    overflow-y: auto;
+    flex-grow: 1;
+    background-color: rgba(40, 50, 55, 0.4);
+    border-radius: 5px 5px 0 0;
+}
+
+#users li {
+    padding: 2px;
+    background-color: rgba(40, 50, 53, 0.2);
+    margin-bottom: 5px;
+    word-wrap: break-word;
+    color: white;
+    border-radius: 4px;
+}
+
+#users:hover {
+    background-color: rgba(40, 50, 55, 0.9);
+}
+
 .chat-controls {
     display: flex;
-    /* This ensures that your input and button are in a flex row */
+    justify-content: space-between;
     padding: 10px;
+    background-color: rgba(40, 50, 55, 0.4);
 }
 
 #message-box {

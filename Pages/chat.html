@@ -6,18 +6,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Chat App</title>
     </head>
+
     <body>
         <div class="container">
-            <ul id="messages"></ul>
-            <div class="chat-controls">
-                <input id="message-box" autocomplete="on" />
-                <button id="send-btn">Send</button>
+            <div class="chat-container">
+                <ul id="messages"></ul>
+                <div class="chat-controls">
+                    <input id="message-box" autocomplete="on" />
+                    <button id="send-btn">Send</button>
+                </div>
+            </div>
+            <div class="control-panel-container">
+                <h2>Online Users:</h2>
+                <ul id="users"></ul>
             </div>
         </div>
+        <div id="logout-container">
+            <button id="logout-btn">Logout</button>
+        </div>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="/Scripts/chat-event.js"></script>
     </body>
-    <div id="logout-container">
-        <button id="logout-btn">Logout</button>
-    </div>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/Scripts/chat-event.js"></script>
 </html>

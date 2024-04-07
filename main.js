@@ -114,6 +114,7 @@ app.post("/login", async (req, res) => {
 //
 
 var CircularBuffer = require("circular-buffer");
+var onlineUsers = {};
 
 const messageBuffer = new CircularBuffer(50);
 
@@ -151,7 +152,24 @@ io.use(async (socket, next) => {
 });
 
 io.on("connection", (socket) => {
+  userClient = {
+    username: socket.user.username,
+    socketId: socket.id,
+  };
+  onlineUsers[socket.user.username] = userClient;
   console.log(`user connected: [${socket.user.username}]`);
+  var userList = [];
+  for (var key in onlineUsers) {
+    userList.push(onlineUsers[key].username);
+  }
+
+  var userData = {
+    users: Object.keys(onlineUsers),
+  };
+
+  io.emit("getUsers", userData);
+  console.log(userData.users);
+
   socket.on("chat message", (msg) => {
     data = { user: socket.user.username, text: msg };
     messageBuffer.enq(data);
@@ -166,6 +184,28 @@ io.on("connection", (socket) => {
       }
     } else {
       io.emit("chat message", { user: socket.user.username, text: msg });
+    }
+  });
+
+  socket.on("disconnect", () => {
+    console.log(`user disconnected: [${socket.user.username}]`);
+    delete onlineUsers[socket.user.username];
+    userData = {
+      users: Object.keys(onlineUsers),
+    };
+    io.emit("getUsers", userData);
+  });
+
+  socket.on("privatemessage", (msg) => {
+    let receiver = msg.receiver;
+    let sender = socket.user.username;
+    let message = msg.message;
+    let receiverSocket = onlineUsers[receiver];
+    if (receiverSocket) {
+      io.to(receiverSocket.socketId).emit("privatemessage", {
+        sender: sender,
+        message: message,
+      });
     }
   });
 });
